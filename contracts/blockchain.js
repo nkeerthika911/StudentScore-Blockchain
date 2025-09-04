@@ -1,4 +1,4 @@
-const ethers = require('ethers');
+const { ethers } = require('ethers');
 require('dotenv').config();
 
 // 1. Connect to Sepolia via Alchemy
@@ -8,32 +8,14 @@ const provider = new ethers.JsonRpcProvider(process.env.ALCHEMY_URL);
 const signer = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
 
 // 3. Contract info
-const contactAddress = process.env.CONTACT_ADDRESS;
-const contractABI = [[
+const contactAddress = process.env.CONTRACT_ADDRESS;
+const contractABI = [
     {
         "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "id",
-                "type": "uint256"
-            },
             {
                 "internalType": "string",
-                "name": "hashValue",
-                "type": "string"
-            }
-        ],
-        "name": "storeHash",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
                 "name": "id",
-                "type": "uint256"
+                "type": "string"
             },
             {
                 "internalType": "uint256",
@@ -55,9 +37,9 @@ const contractABI = [[
     {
         "inputs": [
             {
-                "internalType": "uint256",
+                "internalType": "string",
                 "name": "id",
-                "type": "uint256"
+                "type": "string"
             }
         ],
         "name": "getLatestHash",
@@ -74,9 +56,9 @@ const contractABI = [[
     {
         "inputs": [
             {
-                "internalType": "uint256",
+                "internalType": "string",
                 "name": "",
-                "type": "uint256"
+                "type": "string"
             },
             {
                 "internalType": "uint256",
@@ -99,20 +81,40 @@ const contractABI = [[
         ],
         "stateMutability": "view",
         "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "id",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "hashValue",
+                "type": "string"
+            }
+        ],
+        "name": "storeHash",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
     }
-]]
+]
 
 // 4. Create contract instance
-export const contract = new ethers.Contract(contactAddress, contractABI, signer);
+const contract = new ethers.Contract(contactAddress, contractABI, signer);
 
-export async function storeHash(id, hashValue) {
-  const tx = await contract.storeHash(id, hashValue);
-  await tx.wait();
-  console.log(`Hash stored for record ${id}: ${hashValue}`);
+const storeHash = async (id, hashValue) => {
+    const tx = await contract.storeHash(id, hashValue);
+    await tx.wait();
+    // console.log(`Hash stored for record ${id}: ${hashValue}`);
 }
 
-export async function getLatestHash(id) {
-  const hash = await contract.getLatestHash(id);
-  console.log(`Latest hash for record ${id}: ${hash}`);
-  return hash;
+const getLatestHash = async (id) => {
+    const hash = await contract.getLatestHash(id);
+    console.log(`Latest hash for record ${id}: ${hash}`);
+    return hash;
 }
+
+module.exports = {storeHash, getLatestHash };
