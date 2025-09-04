@@ -22,7 +22,7 @@ const createStudent = async (req, res) => {
 
         const tx = await storeHash(data._id.toString(), hash);
 
-        console.log('Blockchain transaction:', data._id.toString(), hash);
+        console.log('Blockchain transaction:', data._id.toString(), tx.hash);
 
         res.json({
             success: true,

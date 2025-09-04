@@ -108,11 +108,13 @@ const contract = new ethers.Contract(contactAddress, contractABI, signer);
 const storeHash = async (id, hashValue) => {
     const tx = await contract.storeHash(id, hashValue);
     await tx.wait();
-    // console.log(`Hash stored for record ${id}: ${hashValue}`);
+    console.log(`Hash stored for record ${id} ${hashValue}`);
+    return tx;
 }
 
 const getLatestHash = async (id) => {
-    const hash = await contract.getLatestHash(id);
+    // console.log('getLatestHash:', id);
+    const hash = await contract.getLatestHash(id.toString());
     console.log(`Latest hash for record ${id}: ${hash}`);
     return hash;
 }
