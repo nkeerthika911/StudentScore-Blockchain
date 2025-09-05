@@ -3,8 +3,8 @@
 This README file includes:
 
 - Project overview
-- Folder structure
 - Tech stack
+- Folder structure
 - Installation & setup steps (dependencies + .env)
 - Guide to setting up Alchemy, Remix IDE, and MetaMask
 - Where to find ABI, contract address, private key, and Alchemy URL
