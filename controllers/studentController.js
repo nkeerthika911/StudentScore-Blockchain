@@ -22,8 +22,6 @@ const createStudent = async (req, res) => {
 
         const tx = await storeHash(data._id.toString(), hash);
 
-        console.log('Blockchain transaction:', data._id.toString(), tx.hash);
-
         res.json({
             success: true,
             message: 'Student record created successfully!',
@@ -49,8 +47,6 @@ const verifyStudent = async (req, res) => {
         // Blockchain verification logic
         const localHash = generateSHA256(reqData);
         const blockChainHash = await getLatestHash(data._id.toString());
-        console.log('Local hash:', localHash);
-        console.log('Blockchain hash:', blockChainHash);
         if (localHash !== blockChainHash) {
             return res.status(403).json({ success: false, message: 'Record has been tampered with!' });
         }
@@ -58,12 +54,34 @@ const verifyStudent = async (req, res) => {
             res.json({ success: true, message: 'Record found', data });
         }
     } catch (err) {
-        console.error(err);
+        console.error("Error fetching student details",err);
         res.status(500).json({ success: false, message: 'Server Error' });
     }
 }
 
+const updateStudent = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const content = req.body;
+        const data = await studentService.findStudentById(id);
+        if (!data) {
+            return res.status(404).json({ success: false, message: 'Record not found' });
+        }
+        const updatedData = await studentService.updateStudent(id, content);
+        const recordToHash = { _id: updatedData._id.toString(), name: updatedData.name, email: updatedData.email, grade: updatedData.grade };
+        const updatedHash = generateSHA256(recordToHash);
+        const tx = await storeHash(id.toString(), updatedHash);
+
+        res.json({ success: true, message: 'Student record updated successfully!', data: updatedData });
+    } catch (err) {
+        console.error('Error updating student:', err);
+        res.status(500).json({ success: false, message: 'Server Error' });
+    }
+}
+
+
 module.exports = {
     createStudent,
-    verifyStudent
+    verifyStudent,
+    updateStudent
 };
