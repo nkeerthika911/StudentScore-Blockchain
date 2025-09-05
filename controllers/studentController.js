@@ -48,7 +48,7 @@ const verifyStudent = async (req, res) => {
 
         // Blockchain verification logic
         const localHash = generateSHA256(reqData);
-        const blockChainHash = await getLatestHash(id.toString());
+        const blockChainHash = await getLatestHash(data._id.toString());
         console.log('Local hash:', localHash);
         console.log('Blockchain hash:', blockChainHash);
         if (localHash !== blockChainHash) {
