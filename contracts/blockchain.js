@@ -106,30 +106,15 @@ const contractABI = [
 const contract = new ethers.Contract(contactAddress, contractABI, signer);
 
 const storeHash = async (id, hashValue) => {
-    console.log("Storing hash for ID:", id, "Hash:", hashValue);
 
     const tx = await contract.storeHash(id, hashValue);
-    const receipt = await tx.wait();
-    console.log("TX mined. Status:", receipt.status, "TX hash:", receipt.transactionHash);
-
-    const len = await contract.recordHistory(id, 0).catch(() => null);
-    console.log("First record check:", len); // test if recordHistory exists
-
-    try {
-        const latest = await contract.getLatestHash(id.toString());
-        console.log("Latest hash:", latest);
-    } catch (err) {
-        console.error("Error fetching latest hash:", err);
-    }
+    await tx.wait();
 
     return tx;
 }
 
-
 const getLatestHash = async (id) => {
-    // console.log('getLatestHash:', id);
     const hash = await contract.getLatestHash(id.toString());
-    console.log(`Latest hash for record ${id}: ${hash}`);
     return hash;
 }
 
