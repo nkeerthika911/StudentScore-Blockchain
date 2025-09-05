@@ -1,3 +1,5 @@
+# Student Records on Ethereum Blockchain
+
 This README file includes:
 
 - Project overview
@@ -8,8 +10,6 @@ This README file includes:
 - Where to find ABI, contract address, private key, and Alchemy URL
 
 # PROJECT OVERVIEW
-
-### Student Records on Ethereum Blockchain
 
 This project demonstrates how to securely store and verify student data using the Ethereum blockchain. It combines a MongoDB database with blockchain verification to ensure that data remains tamper-proof and trustworthy.
 
