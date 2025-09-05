@@ -1,4 +1,3 @@
-// utils/hash.js
 const crypto = require('crypto');
 
 function generateSHA256(data) {
