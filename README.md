@@ -9,7 +9,7 @@ This README file includes:
 - Guide to setting up Alchemy, Remix IDE, and MetaMask
 - Where to find ABI, contract address, private key, and Alchemy URL
 
-# PROJECT OVERVIEW
+## PROJECT OVERVIEW
 
 This project demonstrates how to securely store and verify student data using the Ethereum blockchain. It combines a MongoDB database with blockchain verification to ensure that data remains tamper-proof and trustworthy.
 
@@ -36,7 +36,7 @@ This project demonstrates how to securely store and verify student data using th
 - Security - Verifies every retrieval against blockchain data
 - Tamper Detection - Unauthorized modifications are easily detected
 
-# FOLDER STRUCTURE
+## FOLDER STRUCTURE
 ```
 project-root/
 │── contracts/
@@ -62,7 +62,7 @@ project-root/
 │── .env                     # Environment variables
 ```
 
-# INSTALLATION AND SETUP
+## INSTALLATION AND SETUP
 
 ### Clone the repository:
 ```
@@ -89,7 +89,7 @@ npm start
 ```
 (Make sure you configure nodemon in package.json under scripts)
 
-# Environment Setup Guide
+## ENVIRONMENT SETUP GUIDE
 
 ### 1. Alchemy Setup
 
@@ -112,7 +112,7 @@ npm start
 - Copy the deployed contract address and place it in .env under CONTRACT_ADDRESS
 - From the Remix compiler, copy the ABI array and replace the placeholder ABI inside contracts/blockchain.js
 
-# CONCLUSION
+## CONCLUSION
 
 Finish all these steps and you are good to go! :)
 
